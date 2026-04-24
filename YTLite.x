@@ -1,3 +1,4 @@
+#import <substrate.h>
 #import "YTLite.h"
 
 static UIImage *YTImageNamed(NSString *imageName) {
@@ -1380,7 +1381,21 @@ static NSURL *newCoverURL(NSURL *originalURL) {
 // }
 // %end
 
+// Patreon Bypass
+extern "C" bool dvnCheck();
+%hookf(bool, dvnCheck) {
+    return true;
+}
+
+extern "C" bool dvnLocked();
+%hookf(bool, dvnLocked) {
+    return false;
+}
+
 %ctor {
+    // Force Advanced Mode
+    ytlSetBool(YES, @"advancedMode");
+
     if (ytlBool(@"shortsOnlyMode") && (ytlBool(@"removeShorts") || ytlBool(@"reExplore"))) {
         ytlSetBool(NO, @"removeShorts");
         ytlSetBool(NO, @"reExplore");

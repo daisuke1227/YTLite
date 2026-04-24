@@ -651,3 +651,9 @@ static NSString *GetCacheSize() {
     return image;
 }
 %end
+
+%hook YTPSettingsBuilder
+- (id)patreonSection:(id)arg1 {
+    return nil;
+}
+%end
