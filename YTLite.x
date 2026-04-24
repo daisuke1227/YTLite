@@ -1381,14 +1381,12 @@ static NSURL *newCoverURL(NSURL *originalURL) {
 // }
 // %end
 
-// Patreon Bypass
-extern "C" bool dvnCheck();
-%hookf(bool, dvnCheck) {
+// Patreon Bypass Implementation
+extern bool dvnCheck() {
     return true;
 }
 
-extern "C" bool dvnLocked();
-%hookf(bool, dvnLocked) {
+extern bool dvnLocked() {
     return false;
 }
 
